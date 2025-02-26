@@ -26,7 +26,7 @@ const virtualScrollData = ref([]);
 for (let i = 0; i < 100; i++) {
   virtualScrollData.value.push({
     id: i,
-    label: `${i}${i}__${i}${i}`,
+    label: `${i}${i}__${i}${i}哈哈啊哈哈啊哈哈哈啊哈哈哈啊哈哈哈啊哈啊哈哈啊哈啊哈哈哈哈啊哈哈哈`,
   });
 }
 </script>
@@ -47,6 +47,7 @@ for (let i = 0; i < 100; i++) {
     :data="virtualScrollData"
     :dataComponent="DemoItem"
     :estimateSize="30"
+    style="width: 200px"
   ></VirtualScrollList>
 </template>
 

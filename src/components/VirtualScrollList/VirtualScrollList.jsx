@@ -1,6 +1,7 @@
 import { defineComponent, onBeforeMount } from "vue";
 import { ref } from "vue";
 import { initVirtual } from "./initVirtual.js";
+import virtualItem from "./virtualItem.jsx";
 
 export default defineComponent({
   name: "sq-virtual-scroll-list",
@@ -44,14 +45,27 @@ export default defineComponent({
       const slots = [];
       const { start, end } = range.value;
       const { dataComponent } = props;
-      console.log(dataComponent, "????");
+
       for (let i = start; i <= end; i++) {
         const item = props.data[i];
         const key = item[props.dataKey];
-        slots.push(<dataComponent key={key} item={item}></dataComponent>);
+        // slots.push(<dataComponent key={key} item={item}></dataComponent>);
+
+        slots.push(
+          <virtualItem
+            id={key}
+            data={item}
+            component={dataComponent}
+            onItemResize={handleItemSize}
+          ></virtualItem>
+        );
       }
 
       return slots;
+    };
+
+    const handleItemSize = (id, size) => {
+      virtual.saveItemsSize(id, size);
     };
 
     const getUniqueIdFromDataSource = () => {
@@ -75,7 +89,6 @@ export default defineComponent({
 
     const handleScroll = () => {
       if (virtualRef.value) {
-        console.log(virtualRef.value.scrollTop);
         virtual.handleScroll(virtualRef.value.scrollTop);
       }
     };

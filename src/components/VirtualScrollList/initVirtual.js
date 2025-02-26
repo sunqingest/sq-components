@@ -1,4 +1,13 @@
+const CALCULATE_TYPE = {
+  INIT: "INIT",
+  FIXED: "FIXED",
+  DYNAMIC: "DYNAMIC",
+};
+
 export const initVirtual = (param, update) => {
+  let calculateType = CALCULATE_TYPE.INIT;
+  let fixedSizeValue = 0;
+  let rangeAvg = 0;
   const range = {
     start: 0,
     end: 0,
@@ -6,13 +15,48 @@ export const initVirtual = (param, update) => {
     padBehind: 0,
   };
 
+  const isCalculateFixed = () => {
+    return calculateType == CALCULATE_TYPE.FIXED;
+  };
+
+  const getEstimateSize = () => {
+    console.log(
+      isCalculateFixed() ? fixedSizeValue : rangeAvg || param.estimateSize,
+      "????"
+    );
+    return isCalculateFixed() ? fixedSizeValue : rangeAvg || param.estimateSize;
+  };
+
+  const getIndexOffset = (idx) => {
+    if (!idx) {
+      return 0;
+    }
+    let offset = 0;
+    for (let i = 0; i < idx; i++) {
+      let indexSize = sizes.get(param.uniqueIds[i]);
+      offset += typeof indexSize == "number" ? indexSize : getEstimateSize();
+    }
+
+    return offset;
+  };
+
   const getPadFront = () => {
-    return param.estimateSize * range.start;
+    // 准确计算上偏移量
+    if (isCalculateFixed()) {
+      return getEstimateSize() * range.start;
+    } else {
+      // 将滚动后的元素累加
+      return getIndexOffset(range.start);
+    }
+    // return param.estimateSize * range.start;
+    // return getEstimateSize() * range.start;
   };
 
   const getPadBehind = () => {
+    console.log("??????");
     const lastIndex = param.uniqueIds.length - 1;
-    return (lastIndex - range.end) * param.estimateSize;
+    // return (lastIndex - range.end) * param.estimateSize;
+    return (lastIndex - range.end) * getEstimateSize();
   };
 
   const updateRange = (start, end) => {
@@ -50,9 +94,36 @@ export const initVirtual = (param, update) => {
     return end;
   };
 
+  const getScrollOvers = () => {
+    // return Math.floor(offsetValue / getEstimateSize());
+    if (isCalculateFixed()) {
+      // 固定高度
+      return Math.floor(offsetValue / getEstimateSize());
+    } else {
+      // 动态高度 使用二分查找
+      let low = 0;
+      let high = param.uniqueIds.length - 1;
+      let middle = 0;
+      let middleOffset = 0;
+      while (low <= high) {
+        middle = low + Math.floor(high - low) / 2;
+        middleOffset = getIndexOffset(middle);
+        if (middleOffset == offsetValue) {
+          return middle;
+        } else if (middleOffset < offsetValue) {
+          low = middle + 1;
+        } else if (middleOffset > offsetValue) {
+          high = middle - 1;
+        }
+      }
+      // 找不到 则去当前low的索引位置
+      return low > 0 ? --low : 0;
+    }
+  };
+
   const handleFront = () => {
     // 当前鼠标滚动的距离 除以 大概的每个的高度
-    let covers = Math.floor(offsetValue / param.estimateSize);
+    let covers = getScrollOvers();
     if (covers > range.start) {
       // 假设现在是从第三十个开始的 keeps是30 然后假设当前covers已经滚过40个 那么就不需要更新range
       return;
@@ -65,7 +136,7 @@ export const initVirtual = (param, update) => {
 
   // 处理鼠标向后滚动
   const handleBehind = () => {
-    let covers = Math.floor(offsetValue / param.estimateSize);
+    let covers = getScrollOvers();
     if (covers < range.start + param.buffer) {
       return;
     }
@@ -83,5 +154,36 @@ export const initVirtual = (param, update) => {
     }
   };
 
-  return { handleScroll };
+  const sizes = new Map();
+
+  // 记录所有item的高度
+  const saveItemsSize = (id, size) => {
+    console.log("------");
+    sizes.set(id, size);
+    // 固定 或者 是动态高度
+    if (calculateType == CALCULATE_TYPE.INIT) {
+      // 第一个元素初始化完毕
+      fixedSizeValue = size;
+      calculateType = CALCULATE_TYPE.FIXED; // 设置完固定高度
+    } else if (
+      calculateType == CALCULATE_TYPE.FIXED &&
+      fixedSizeValue !== size
+    ) {
+      // 后续子组件元素 只要出现一个size不等于固定高度 则设置完动态高度
+      calculateType = CALCULATE_TYPE.DYNAMIC;
+      fixedSizeValue = 0;
+    }
+
+    if (calculateType == CALCULATE_TYPE.DYNAMIC) {
+      // 动态高度 根据已经加载的数据 求平均值
+      // 根据当前展示的dom数据 来计算滚动条的值
+      if (sizes.size < Math.min(param.keeps, param.uniqueIds.length)) {
+        rangeAvg = Math.round(
+          [...sizes.values()].reduce((acc, val) => acc + val, 0) / sizes.size
+        );
+      }
+    }
+  };
+
+  return { handleScroll, saveItemsSize };
 };
