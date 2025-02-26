@@ -1,0 +1,6 @@
+.sq-virtual-scroll-list {
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  color: #000;
+}

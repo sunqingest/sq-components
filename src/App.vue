@@ -4,6 +4,9 @@ import Collapse from "./components/Collapse/Collapse.vue";
 import collapseItem from "./components/Collapse/collapseItem.vue";
 import Message from "./components/Message/Message.vue";
 import { createMessage } from "./components/Message/method";
+import VirtualScrollList from "./components/VirtualScrollList/VirtualScrollList";
+import DemoItem from "./components/VirtualScrollList/item.vue";
+
 const collapseValue = ref([]);
 
 onMounted(() => {
@@ -18,6 +21,14 @@ onMounted(() => {
     messageInstance.destory();
   }, 5000);
 });
+
+const virtualScrollData = ref([]);
+for (let i = 0; i < 100; i++) {
+  virtualScrollData.value.push({
+    id: i,
+    label: `${i}${i}__${i}${i}`,
+  });
+}
 </script>
 
 <template>
@@ -32,6 +43,11 @@ onMounted(() => {
       <div style="background-color: red; height: 300px">我在第二行展开呢</div>
     </collapseItem>
   </Collapse>
+  <VirtualScrollList
+    :data="virtualScrollData"
+    :dataComponent="DemoItem"
+    :estimateSize="30"
+  ></VirtualScrollList>
 </template>
 
 <style scoped>
