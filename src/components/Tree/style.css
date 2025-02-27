@@ -1,0 +1,41 @@
+.sq-tree__item {
+  display: flex;
+  align-items: center;
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.sq-tree__item__content {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sq-tree__item__icon--container {
+  margin-right: 10px;
+  transition: all 0.5s;
+
+  &.collapse {
+    transform: rotate(-90deg);
+  }
+}
+
+.sq-tree__item__icon--loading {
+  animation: rotate 0.5s linear infinite;
+}
+
+.sq-tree__item__icon {
+  width: 12px;
+  height: 12px;
+  fill: #000;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

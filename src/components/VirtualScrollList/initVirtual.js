@@ -20,10 +20,6 @@ export const initVirtual = (param, update) => {
   };
 
   const getEstimateSize = () => {
-    console.log(
-      isCalculateFixed() ? fixedSizeValue : rangeAvg || param.estimateSize,
-      "????"
-    );
     return isCalculateFixed() ? fixedSizeValue : rangeAvg || param.estimateSize;
   };
 
@@ -53,7 +49,6 @@ export const initVirtual = (param, update) => {
   };
 
   const getPadBehind = () => {
-    console.log("??????");
     const lastIndex = param.uniqueIds.length - 1;
     // return (lastIndex - range.end) * param.estimateSize;
     return (lastIndex - range.end) * getEstimateSize();
@@ -158,7 +153,6 @@ export const initVirtual = (param, update) => {
 
   // 记录所有item的高度
   const saveItemsSize = (id, size) => {
-    console.log("------");
     sizes.set(id, size);
     // 固定 或者 是动态高度
     if (calculateType == CALCULATE_TYPE.INIT) {

@@ -33,7 +33,6 @@ export default defineComponent({
     //   padFront: 0,
     //   padBehind: 0,
     // });
-    console.log("???/");
     let virtual;
     const range = ref(null);
 

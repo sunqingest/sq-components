@@ -6,6 +6,7 @@ import Message from "./components/Message/Message.vue";
 import { createMessage } from "./components/Message/method";
 import VirtualScrollList from "./components/VirtualScrollList/VirtualScrollList";
 import DemoItem from "./components/VirtualScrollList/item.vue";
+import Tree from "./components/Tree/Tree.vue";
 
 const collapseValue = ref([]);
 
@@ -29,9 +30,99 @@ for (let i = 0; i < 100; i++) {
     label: `${i}${i}__${i}${i}哈哈啊哈哈啊哈哈哈啊哈哈哈啊哈哈哈啊哈啊哈哈啊哈啊哈哈哈哈啊哈哈哈`,
   });
 }
+
+const createData = () => {
+  return [
+    {
+      label: nextLabel(),
+      key: 1,
+      isLeaf: false,
+      children: [],
+    },
+    {
+      label: nextLabel(),
+      key: 2,
+      isLeaf: false,
+      children: [],
+    },
+  ];
+};
+
+const nextLabel = (currentLabel) => {
+  if (!currentLabel) {
+    return "一一得一";
+  }
+  if (currentLabel == "一一得一") {
+    return "二二得四";
+  }
+  if (currentLabel == "二二得四") {
+    return "三三得九";
+  }
+  if (currentLabel == "三三得九") {
+    return "四四十六";
+  }
+  return "";
+};
+
+const handleLoad = (node) => {
+  // 内部需要将展开的节点传递过来
+  console.log(node);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          label: nextLabel(node.label),
+          key: node.key + nextLabel(node.label),
+          isLeaf: false,
+        },
+      ]);
+    }, 3000);
+  });
+};
+
+const treeData = ref(createData());
+
+// const treeData = ref([
+//   {
+//     id: "1",
+//     label: "一一一",
+//     children: [
+//       {
+//         id: "2",
+//         label: "一一一1",
+//         children: [],
+//       },
+//       {
+//         id: "3",
+//         label: "一一一2",
+//         children: [],
+//       },
+//     ],
+//   },
+//   {
+//     id: "4",
+//     label: "二二二",
+//     children: [
+//       {
+//         id: "5",
+//         label: "二二二1",
+//       },
+//     ],
+//   },
+// ]);
 </script>
 
 <template>
+  <Tree
+    :data="treeData"
+    keyField="key"
+    labelField="label"
+    childrenField="children"
+    :defaultExpandedKeys="['1']"
+    :load="handleLoad"
+    :lazy="true"
+  ></Tree>
+
   <Collapse v-model="collapseValue">
     <collapseItem title="哈哈第一个" name="1">
       <div style="background-color: aliceblue; height: 200px">
