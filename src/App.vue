@@ -7,6 +7,7 @@ import { createMessage } from "./components/Message/method";
 import VirtualScrollList from "./components/VirtualScrollList/VirtualScrollList";
 import DemoItem from "./components/VirtualScrollList/item.vue";
 import Tree from "./components/Tree/Tree.vue";
+import Input from "./components/Input/Input.vue";
 
 const collapseValue = ref([]);
 
@@ -16,6 +17,7 @@ onMounted(() => {
   });
   createMessage({
     message: "哈哈 222",
+    duration: 1000,
   });
 
   setTimeout(() => {
@@ -110,9 +112,12 @@ const treeData = ref(createData());
 //     ],
 //   },
 // ]);
+
+const iptValue = ref("测试ipt");
 </script>
 
 <template>
+  <Input v-model="iptValue" />
   <Tree
     :data="treeData"
     keyField="key"
@@ -121,7 +126,17 @@ const treeData = ref(createData());
     :defaultExpandedKeys="['1']"
     :load="handleLoad"
     :lazy="true"
-  ></Tree>
+  >
+    <template #default="{ node, data }">
+      <div style="display: flex; align-items: center">
+        <span>{{ node.label }}</span>
+        <div style="display: inline-flex; align-items: center">
+          <div style="cursor: pointer; margin-right: 10px">删除</div>
+          <div style="cursor: pointer; margin-right: 10px">新增</div>
+        </div>
+      </div>
+    </template>
+  </Tree>
 
   <Collapse v-model="collapseValue">
     <collapseItem title="哈哈第一个" name="1">

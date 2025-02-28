@@ -26,7 +26,7 @@ const props = defineProps({
     type: String,
     default: "success",
   },
-  dutation: {
+  duration: {
     type: [String, Number],
     default: 0,
   },
@@ -62,13 +62,13 @@ const cssStyle = computed(() => {
 const visible = ref(false);
 
 const startTimer = () => {
-  if (props.dutation == 0) {
+  if (props.duration == 0) {
     return;
   }
   setTimeout(() => {
     visible.value = false;
     // props.onDestoryed();
-  }, props.dutation);
+  }, props.duration);
 };
 
 const messageRef = ref(null);

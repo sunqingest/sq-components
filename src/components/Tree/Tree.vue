@@ -12,8 +12,9 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from "vue";
+import { ref, watch, computed, onMounted, useSlots, provide } from "vue";
 import TreeItem from "./TreeItem.vue";
+import { treeContextKey } from "./types";
 
 const props = defineProps({
   data: {
@@ -178,7 +179,6 @@ const loadingKeysSet = ref(new Set());
 
 const triggerLoading = (node) => {
   // 判断当前的children 是否已经有值 说明已经懒加载过了  判断当前是否是叶子结点
-  console.log(node, "????");
   if (node.children.length == 0 && !node.isLeaf) {
     const loadingKeys = loadingKeysSet.value;
     if (!loadingKeys.has(node.key)) {
@@ -198,4 +198,11 @@ const triggerLoading = (node) => {
     }
   }
 };
+
+const slots = useSlots();
+
+// 将自定义节点内容插槽 通过provide注入到下面的子节点
+provide(treeContextKey, {
+  slots: slots,
+});
 </script>
