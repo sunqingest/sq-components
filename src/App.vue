@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import Collapse from "./components/Collapse/Collapse.vue";
 import collapseItem from "./components/Collapse/collapseItem.vue";
 import Message from "./components/Message/Message.vue";
@@ -8,6 +8,35 @@ import VirtualScrollList from "./components/VirtualScrollList/VirtualScrollList"
 import DemoItem from "./components/VirtualScrollList/item.vue";
 import Tree from "./components/Tree/Tree.vue";
 import Input from "./components/Input/Input.vue";
+
+import {
+  useFloating,
+  offset,
+  flip,
+  shift,
+  arrow,
+  autoUpdate,
+} from "@floating-ui/vue";
+
+const reference = ref(null);
+const floating = ref(null);
+const floatingArrow = ref(null);
+const { floatingStyles, middlewareData } = useFloating(reference, floating, {
+  placement: "bottom-end",
+  middleware: [offset(8), flip(), shift()],
+  // whileElementsMounted: autoUpdate,
+  // whileElementsMounted(referenceEl, floatingEl, update) {
+  //   const cleanup = autoUpdate(referenceEl, floatingEl, update, {
+  //     ancestorScroll: false,
+  //   });
+  //   return cleanup;
+  // },
+});
+
+const arrowStyle = computed(() => {
+  console.log(middlewareData.value);
+  return {};
+});
 
 const collapseValue = ref([]);
 
@@ -117,6 +146,18 @@ const iptValue = ref("测试ipt");
 </script>
 
 <template>
+  <!--floating-ui demo-->
+  <div style="height: 200px; border: 1px solid #ddd">
+    <button ref="reference">Button</button>
+    <div ref="floating" :style="floatingStyles" id="tooltip">
+      Tooltip
+
+      <!-- <div ref="floatingArrow" id="arrow" :style="arrowStyle"></div> -->
+    </div>
+    <div style="height: 300px">其他的</div>
+  </div>
+
+  <!-- <div style="margin-top: 100px"></div> -->
   <Input v-model="iptValue" />
   <Tree
     :data="treeData"
@@ -169,5 +210,25 @@ const iptValue = ref("测试ipt");
 }
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
+}
+
+#tooltip {
+  width: max-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #222;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 90%;
+}
+#arrow {
+  position: absolute;
+  background: #222;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
 }
 </style>
