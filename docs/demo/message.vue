@@ -4,7 +4,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { createMessage } from "../../src/components/Message/method";
+import { createMessage } from "@/components/Message/method";
 
 // onMounted(() => {
 //   const messageInstance = createMessage({

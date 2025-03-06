@@ -3,12 +3,21 @@ import {
   containerPreview,
   componentPreview,
 } from "@vitepress-demo-preview/plugin";
+import { fileURLToPath, URL } from "node:url";
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   markdown: {
     config(md) {
       md.use(containerPreview);
       md.use(componentPreview);
+    },
+  },
+  vite: {
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("../../src", import.meta.url)),
+      },
     },
   },
   title: "SQ Component UI",
