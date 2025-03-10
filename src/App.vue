@@ -9,6 +9,8 @@ import DemoItem from "./components/VirtualScrollList/item.vue";
 import Tree from "./components/Tree/Tree.vue";
 import Input from "./components/Input/Input.vue";
 
+import { debounce } from "./utils/common";
+
 import {
   useFloating,
   offset,
@@ -143,22 +145,17 @@ const treeData = ref(createData());
 // ]);
 
 const iptValue = ref("测试ipt");
+
+const iptHasChange = (value) => {
+  console.log("input触发了", value);
+};
+
+const handleIpt = debounce(iptHasChange, 3000);
 </script>
 
 <template>
-  <!--floating-ui demo-->
-  <div style="height: 200px; border: 1px solid #ddd">
-    <button ref="reference">Button</button>
-    <div ref="floating" :style="floatingStyles" id="tooltip">
-      Tooltip
-
-      <!-- <div ref="floatingArrow" id="arrow" :style="arrowStyle"></div> -->
-    </div>
-    <div style="height: 300px">其他的</div>
-  </div>
-
   <!-- <div style="margin-top: 100px"></div> -->
-  <Input v-model="iptValue" />
+  <Input v-model="iptValue" @input="handleIpt" />
   <Tree
     :data="treeData"
     keyField="key"
@@ -210,25 +207,5 @@ const iptValue = ref("测试ipt");
 }
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
-}
-
-#tooltip {
-  width: max-content;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: #222;
-  color: white;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 4px;
-  font-size: 90%;
-}
-#arrow {
-  position: absolute;
-  background: #222;
-  width: 10px;
-  height: 10px;
-  transform: rotate(45deg);
 }
 </style>

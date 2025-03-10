@@ -1,9 +1,21 @@
 <template>
-  <input :type="type" v-model="inputValue" @input="handleInput" />
+  <div class="sq-input">
+    <input
+      :type="type"
+      v-model="inputValue"
+      @input="handleInput"
+      class="sq-input__inner"
+      @blur="handleBlur"
+    />
+  </div>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, inject } from "vue";
+import { formItemContextKey } from "../Form/types";
+
+// formItem组件内的input select等 通过key值注入inject
+const formItemContext = inject(formItemContextKey);
 
 const props = defineProps({
   modelValue: {
@@ -24,7 +36,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "input"]);
 const inputValue = ref(props.modelValue);
 
 watch(
@@ -36,5 +48,11 @@ watch(
 
 const handleInput = () => {
   emit("update:modelValue", inputValue.value);
+  emit("input", inputValue.value);
+};
+
+const handleBlur = () => {
+  // console.log("input标签的blur事件");
+  formItemContext.validate();
 };
 </script>

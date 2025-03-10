@@ -45,6 +45,15 @@ export default defineConfig({
           },
         ],
       },
+      {
+        text: "Form表单组件",
+        items: [
+          {
+            text: "From表单组件",
+            link: "/components/form",
+          },
+        ],
+      },
     ],
 
     socialLinks: [

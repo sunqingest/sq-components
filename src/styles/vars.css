@@ -17,4 +17,11 @@
     --sq-color-$(val)-light-8: mix(#fff, $(color), 0.8)
     --sq-color-$(val)-dark-2: mix(#000, $(color), 0.2)
   }
+
+  --sq-component-size: 32px;
+
+  --sq-input-border-color: #dcdfe6;
+  --sq-border-color: #dcdfe6;
+  --sq-border-radius-base: 4px;
 }
+

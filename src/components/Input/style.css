@@ -1,0 +1,22 @@
+.sq-input {
+  --sq-input-height: var(--sq-component-size);
+  --sq-input-inner-height: calc(var(--sq-input-height, 32px) - 2px);
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-shadow: 0 0 0 1px var(--sq-input-border-color, var(--sq-border-color))
+    inset;
+  border-radius: var(--sq-border-radius-base);
+  padding: 1px 11px;
+  box-sizing: border-box;
+}
+
+.sq-input__inner {
+  flex: 1;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: none;
+  box-sizing: border-box;
+}
