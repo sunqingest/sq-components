@@ -49,10 +49,17 @@ watch(
 const handleInput = () => {
   emit("update:modelValue", inputValue.value);
   emit("input", inputValue.value);
+  runValidate("change");
+};
+
+const runValidate = (trigger) => {
+  formItemContext.validate(trigger).catch((error) => {
+    console.log(error);
+  });
 };
 
 const handleBlur = () => {
   // console.log("input标签的blur事件");
-  formItemContext.validate();
+  runValidate("blur");
 };
 </script>

@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { provide } from "vue";
+import { provide, ref } from "vue";
 import { formContextKey } from "./types.js";
 
 const props = defineProps({
@@ -18,9 +18,51 @@ const props = defineProps({
   },
 });
 
+// fields 用来保存form组件下的每个formItem组件的上下文的validate resetField clearValidate
+const fields = ref([]);
+
+const addField = (field) => {
+  fields.value.push(field);
+};
+
+const removeField = (field) => {
+  const idx = fields.value.indexOf(field);
+  if (idx > -1) {
+    fields.value.splice(idx, 1);
+  }
+};
+
+// 校验form下的所有表单项
+const validate = async () => {
+  console.log(fields.value);
+  let errors = {};
+  for (let field of fields.value) {
+    try {
+      await field.validate("");
+    } catch (error) {
+      console.log(error);
+      errors = {
+        ...errors,
+        ...error.fields,
+      };
+    }
+  }
+  return errors;
+  console.log(errors);
+};
+
+const resetFields = (props) => {};
+
+defineExpose({
+  validate,
+});
+
 // 将接受到的prop的model和rules通过provide提供给插槽内的formItem
 provide(formContextKey, {
   model: props.model,
   rules: props.rules,
+  fields,
+  addField,
+  removeField,
 });
 </script>
