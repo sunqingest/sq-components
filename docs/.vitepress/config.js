@@ -30,7 +30,7 @@ export default defineConfig({
       { text: "Home", link: "/" },
       {
         text: "组件",
-        link: "/components/",
+        link: "/components/message",
         activeMatch: "/components/",
       },
     ],
@@ -42,6 +42,10 @@ export default defineConfig({
           {
             text: "Message消息提示",
             link: "/components/message",
+          },
+          {
+            text: "Tooltip文字提示",
+            link: "/components/tooltip",
           },
         ],
       },

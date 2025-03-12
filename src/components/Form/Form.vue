@@ -47,14 +47,28 @@ const validate = async () => {
       };
     }
   }
-  return errors;
-  console.log(errors);
+  if (errors.length > 0) {
+    return Promise.reject(errors);
+  } else {
+    return true;
+  }
+  // console.log(errors);
 };
 
-const resetFields = (props) => {};
+const resetFields = (props) => {
+  const fieldList = props
+    ? props.length > 0
+      ? fields.value.filter((i) => props.includes(i.prop))
+      : fields.value
+    : fields.value;
+  fieldList.forEach((field) => {
+    field.resetField();
+  });
+};
 
 defineExpose({
   validate,
+  resetFields,
 });
 
 // 将接受到的prop的model和rules通过provide提供给插槽内的formItem

@@ -116,6 +116,8 @@ const clearValidate = () => {
   resetField();
 };
 
+defineExpose({ validate, resetField, clearValidate });
+
 // formItem 将自己的校验方法通过provide传递给自己的插槽内的子组件
 // 组件库封装的form内部的表单组件 通过inject注入
 const formItemContext = {

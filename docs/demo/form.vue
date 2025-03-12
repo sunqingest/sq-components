@@ -7,8 +7,10 @@
       <Input v-model="formData.phone"></Input>
     </SqFormItem>
 
-    <div @click="handleSubmit">校验</div>
-    <div @click="handleReset">重置</div>
+    <div style="display: flex; align-items: center">
+      <div @click="handleSubmit">校验</div>
+      <div @click="handleReset">重置</div>
+    </div>
   </SqForm>
 </template>
 
@@ -19,8 +21,8 @@ import SqFormItem from "@/components/Form/FormItem.vue";
 import Input from "@/components/Input/Input.vue";
 
 const formData = reactive({
-  name: "",
-  phone: "",
+  name: "初始名字",
+  phone: "18212345678",
 });
 
 const rules = reactive({
@@ -66,5 +68,9 @@ const handleSubmit = () => {
   }
 };
 
-const handleReset = () => {};
+const handleReset = () => {
+  if (formRef.value) {
+    formRef.value.resetFields(["name"]);
+  }
+};
 </script>

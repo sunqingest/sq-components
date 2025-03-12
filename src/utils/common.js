@@ -2,12 +2,11 @@ function debounce(
   fn,
   wait = 0,
   options = {
-    leading: true,
+    leading: false,
   }
 ) {
   let timer = null;
   let isInvoke = false;
-
   const _debounce = function (...args) {
     if (timer) {
       clearTimeout(timer);
@@ -21,6 +20,7 @@ function debounce(
     }
 
     timer = setTimeout(() => {
+      console.log("debounce?????");
       fn.apply(this, args);
       timer = null;
       isInvoke = false;
