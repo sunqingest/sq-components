@@ -56,6 +56,10 @@ export default defineConfig({
             text: "From表单组件",
             link: "/components/form",
           },
+          {
+            text: "Checkbox多选框",
+            link: "/components/checkbox",
+          },
         ],
       },
     ],
