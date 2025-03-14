@@ -94,7 +94,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       installVirtual();
-    });
+    }); 
     return () => {
       const { padFront, padBehind } = range.value;
       // 先只考虑是竖向滚动
@@ -105,7 +105,6 @@ export default defineComponent({
       return (
         <div
           class="sq-virtual-scroll-list"
-          style={{ height: "500px" }}
           onScroll={handleScroll}
           ref={virtualRef}
         >

@@ -4,6 +4,7 @@ import {
   componentPreview,
 } from "@vitepress-demo-preview/plugin";
 import { fileURLToPath, URL } from "node:url";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -14,6 +15,8 @@ export default defineConfig({
     },
   },
   vite: {
+    // vitepress编译jsx语法
+    plugins: [vueJsx()],
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("../../src", import.meta.url)),
@@ -59,6 +62,15 @@ export default defineConfig({
           {
             text: "Checkbox多选框",
             link: "/components/checkbox",
+          },
+        ],
+      },
+      {
+        text: "Data 数据展示",
+        items: [
+          {
+            text: "VirtualList虚拟列表",
+            link: "/components/virtualScrollList",
           },
         ],
       },

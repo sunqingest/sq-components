@@ -5,6 +5,7 @@
       :class="{
         'is-checked': isChecked,
         'is-disabled': isDisabled,
+        'is-indeterminate': indeterminate,
       }"
     >
       <input
@@ -26,7 +27,11 @@
       />
       <span class="sq-checkbox__inner"> </span>
     </span>
-    <span class="sq-checkbox__label">{{ label }}</span>
+    <span class="sq-checkbox__label">
+      <slot>
+        {{ label }}
+      </slot>
+    </span>
   </label>
 </template>
 
@@ -48,7 +53,11 @@ const props = defineProps({
   },
   disabled: {
     type: Boolean,
-    default: true,
+    default: false,
+  },
+  indeterminate: {
+    type: Boolean,
+    default: false,
   },
 });
 
