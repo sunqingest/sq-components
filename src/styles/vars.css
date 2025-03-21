@@ -18,6 +18,7 @@
     --sq-color-$(val)-dark-2: mix(#000, $(color), 0.2)
   }
 
+  --sq-bg-color: #ffffff;
   --sq-component-size: 32px;
 
   --sq-input-border-color: #dcdfe6;

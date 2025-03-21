@@ -94,7 +94,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       installVirtual();
-    }); 
+    });
     return () => {
       const { padFront, padBehind } = range.value;
       // 先只考虑是竖向滚动

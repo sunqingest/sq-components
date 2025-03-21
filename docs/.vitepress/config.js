@@ -40,6 +40,15 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: "Basic基础组件",
+        items: [
+          {
+            text: "Icon图标",
+            link: "/components/icon",
+          },
+        ],
+      },
+      {
         text: "Feedback反馈组件",
         items: [
           {
@@ -49,6 +58,10 @@ export default defineConfig({
           {
             text: "Tooltip文字提示",
             link: "/components/tooltip",
+          },
+          {
+            text: "MessageBox消息弹出框",
+            link: "/components/messageBox",
           },
         ],
       },

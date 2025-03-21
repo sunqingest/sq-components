@@ -44,6 +44,9 @@ const props = defineProps({
   destory: {
     type: Function,
   },
+  zIndex: {
+    type: Number,
+  },
 });
 
 // 多个message的排序的top
@@ -56,6 +59,7 @@ const bottomOffset = computed(() => height.value + topOffset.value);
 const cssStyle = computed(() => {
   return {
     top: `${topOffset.value}px`,
+    zIndex: props.zIndex,
   };
 });
 

@@ -1,5 +1,7 @@
 import { reactive, h, render } from "vue";
 import MessageConstructor from "./Message.vue";
+import { useZIndex } from "../../hooks/useZIndex";
+
 // 多个message 按序排列 其实是将这个method文件做一个中转站
 let seed = 0;
 const instances = reactive([]);
@@ -18,9 +20,12 @@ export const createMessage = (props) => {
     render(null, container);
   };
 
+  const { nextZIndex } = useZIndex();
+
   const newProps = {
     ...props,
     onDestoryed,
+    zIndex: nextZIndex(),
     id,
   };
 

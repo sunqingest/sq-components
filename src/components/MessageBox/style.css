@@ -1,0 +1,16 @@
+.sq-message-box {
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--sq-bg-color);
+  border-radius: 4px;
+}
+
+.fade-in-enter-from,
+.fade-in-leave-to {
+  opacity: 0;
+}
+.fade-in-enter-active,
+.fade-in-leave-active {
+  transition: all 0.1s;
+}
