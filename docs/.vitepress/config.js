@@ -46,6 +46,10 @@ export default defineConfig({
             text: "Icon图标",
             link: "/components/icon",
           },
+          {
+            text: "Button按钮",
+            link: "/components/button",
+          },
         ],
       },
       {
@@ -84,6 +88,10 @@ export default defineConfig({
           {
             text: "VirtualList虚拟列表",
             link: "/components/virtualScrollList",
+          },
+          {
+            text: "Collapse折叠面板",
+            link: "/components/collapse",
           },
         ],
       },
