@@ -1,6 +1,6 @@
 ---
 title: "Message Box消息弹出框"
-titleTemplate: "SQ Component UI"
+titleTemplate: "SQ component UI"
 aside: true
 ---
 
@@ -12,4 +12,3 @@ aside: true
 
 动画 > 遮罩(遮罩组件只负责展示样式 不复杂 v-show 的逻辑 这块逻辑由 messagebox 控制)
 动画监听 after-leave 触发 box 的 destory 方法
-

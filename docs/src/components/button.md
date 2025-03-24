@@ -1,5 +1,6 @@
 ---
 title: "Button按钮"
+titleTemplate: "SQ component UI"
 aside: true
 ---
 

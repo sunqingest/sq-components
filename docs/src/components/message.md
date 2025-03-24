@@ -1,6 +1,6 @@
 ---
 title: "Message消息提示"
-titleTemplate: "SQ Component UI"
+titleTemplate: "SQ component UI"
 aside: true
 ---
 

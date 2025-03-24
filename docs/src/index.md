@@ -1,25 +1,23 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
+# https://vitejs.cn/vitepress/reference/frontmatter-config
+# 参考 - frontmatter配置 - 仅默认主题
 layout: home
 
 hero:
   name: "SQ Component UI"
-  text: "A Demo Component UI "
-  tagline: My great project tagline
+  text: ""
+  tagline: 基于vue3开发的组件库
   actions:
-    - theme: brand
-      text: Markdown Examples
+    - theme: alt
+      text: 快速开始
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: github
+      link: https://github.com/sunqingest/sq-components
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: vitepress
+    details: 通过vitepress实现组件库wendang
+  - title: vitest和vue test utils
+    details: 通过vitest和vue test utils实现组件测试
 ---
-

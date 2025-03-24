@@ -1,6 +1,5 @@
 ---
 title: "Form表单组件"
-titleTemplate: "SQ Component UI"
 aside: true
 ---
 

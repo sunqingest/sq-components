@@ -24,13 +24,18 @@ export default defineConfig({
     },
   },
   title: "SQ Component UI",
-  description: "A Demo Component UI ",
+  description: "基于vue3实现的组件库",
   srcDir: "./src",
   themeConfig: {
     // logo: "/vite.svg",
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: "Home", link: "/" },
+      { text: "首页", link: "/" },
+      {
+        text: "指南",
+        link: "/guide/",
+        activeMatch: "/guide/",
+      },
       {
         text: "组件",
         link: "/components/message",
@@ -38,67 +43,86 @@ export default defineConfig({
       },
     ],
 
-    sidebar: [
-      {
-        text: "Basic基础组件",
-        items: [
-          {
-            text: "Icon图标",
-            link: "/components/icon",
-          },
-          {
-            text: "Button按钮",
-            link: "/components/button",
-          },
-        ],
-      },
-      {
-        text: "Feedback反馈组件",
-        items: [
-          {
-            text: "Message消息提示",
-            link: "/components/message",
-          },
-          {
-            text: "Tooltip文字提示",
-            link: "/components/tooltip",
-          },
-          {
-            text: "MessageBox消息弹出框",
-            link: "/components/messageBox",
-          },
-        ],
-      },
-      {
-        text: "Form表单组件",
-        items: [
-          {
-            text: "From表单组件",
-            link: "/components/form",
-          },
-          {
-            text: "Checkbox多选框",
-            link: "/components/checkbox",
-          },
-        ],
-      },
-      {
-        text: "Data 数据展示",
-        items: [
-          {
-            text: "VirtualList虚拟列表",
-            link: "/components/virtualScrollList",
-          },
-          {
-            text: "Collapse折叠面板",
-            link: "/components/collapse",
-          },
-        ],
-      },
-    ],
+    sidebar: {
+      // 当用户位于`guide`目录时，会显示此侧边栏
+      "/guide/": [
+        {
+          text: "基础",
+          items: [
+            {
+              text: "安装",
+              link: "/guide/",
+            },
+          ],
+        },
+      ],
+      // 当用户位于`components`目录时，会显示此侧边栏
+      "/components/": [
+        {
+          text: "Basic基础组件",
+          items: [
+            {
+              text: "Icon图标",
+              link: "/components/icon",
+            },
+            {
+              text: "Button按钮",
+              link: "/components/button",
+            },
+          ],
+        },
+        {
+          text: "Feedback反馈组件",
+          items: [
+            {
+              text: "Message消息提示",
+              link: "/components/message",
+            },
+            {
+              text: "Tooltip文字提示",
+              link: "/components/tooltip",
+            },
+            {
+              text: "MessageBox消息弹出框",
+              link: "/components/messageBox",
+            },
+          ],
+        },
+        {
+          text: "Form表单组件",
+          items: [
+            {
+              text: "From表单组件",
+              link: "/components/form",
+            },
+            {
+              text: "Checkbox多选框",
+              link: "/components/checkbox",
+            },
+          ],
+        },
+        {
+          text: "Data 数据展示",
+          items: [
+            {
+              text: "VirtualList虚拟列表",
+              link: "/components/virtualScrollList",
+            },
+            {
+              text: "Collapse折叠面板",
+              link: "/components/collapse",
+            },
+            {
+              text: "Tree树形控件",
+              link: "/components/tree",
+            },
+          ],
+        },
+      ],
+    },
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      { icon: "github", link: "https://github.com/sunqingest/sq-components" },
     ],
   },
 });
