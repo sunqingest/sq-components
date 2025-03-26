@@ -99,6 +99,10 @@ export default defineConfig({
               text: "Checkbox多选框",
               link: "/components/checkbox",
             },
+            {
+              text: "Upload上传",
+              link: "/components/upload",
+            },
           ],
         },
         {
