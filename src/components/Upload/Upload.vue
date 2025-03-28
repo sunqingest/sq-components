@@ -17,6 +17,7 @@
 import { ref } from "vue";
 import { genId } from "./method";
 import { httpRequest } from "./ajax";
+import { sliceUpload } from "./slice";
 const props = defineProps({
   fileList: {
     type: Array,
@@ -78,12 +79,16 @@ const props = defineProps({
   onError: {
     type: Function,
   },
+  slice: {
+    type: Boolean,
+    default: true,
+  },
 });
 const inputRef = ref(null);
 
 const handleChange = (event) => {
   const files = event.target.files;
-  console.log(files);
+
   for (let i = 0; i < files.length; i++) {
     const rawFile = files[i];
     rawFile.uid = genId();
@@ -98,24 +103,30 @@ const upload = async (rawFile) => {
   if (result === false) {
     return; // 返回false 也停止上传
   }
-  const { method, fileList, name, action, headers, data } = props;
-  httpRequest({
-    method,
-    fileList,
-    name,
-    action,
-    headers,
-    data,
-    onError: (err) => {
-      props.onError(err, rawFile);
-    },
-    onSuccess: (res) => {
-      props.onSuccess(res, rawFile);
-    },
-    onProgress: (e) => {
-      props.onProgress(e, rawFile);
-    },
-  });
+  if (props.slice) {
+    // 大文件切片上传
+    sliceUpload(rawFile);
+  } else {
+    const { method, fileList, name, action, headers, data } = props;
+    httpRequest({
+      method,
+      fileList,
+      name,
+      action,
+      headers,
+      data,
+      file: rawFile,
+      onError: (err) => {
+        props.onError(err, rawFile);
+      },
+      onSuccess: (res) => {
+        props.onSuccess(res, rawFile);
+      },
+      onProgress: (e) => {
+        props.onProgress(e, rawFile);
+      },
+    });
+  }
 };
 
 const handleClick = () => {

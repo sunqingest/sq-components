@@ -18,19 +18,19 @@ import SqButton from "@/components/Button/Button.vue";
 import SqUpload from "@/components/Upload/Upload.vue";
 
 const handleBeforeUpload = (rawFile) => {
-  console.log(rawFile);
   return true;
 };
 
 const handleSuccess = (res, file) => {
-  console.log(res, file);
+  // console.log(res, file);
+  alert("上传成功");
 };
 
 const handleProgressChange = (evt, file) => {
-  console.log(evt.percentage, file);
+  // console.log(evt.percentage, file);
 };
 
 const handleError = (err) => {
-  console.log(err);
+  // console.log(err);
 };
 </script>

@@ -1,6 +1,6 @@
 export function httpRequest(options) {
   const xhr = new XMLHttpRequest();
-
+  console.log(options);
   const action = options.action;
   // 下载相关事件在 XMLHttpRequest 对象上被触发
   // 上传相关事件在 XMLHttpRequest.upload 对象上被触发
@@ -22,13 +22,16 @@ export function httpRequest(options) {
   }
 
   const formData = new FormData();
+
   if (options.data) {
     Object.entries(options.data).forEach(([key, value]) => {
+      console.log(key, value);
       formData.append(key, value);
     });
   }
   formData.append(options.name, options.file);
 
+  xhr.responseType = "json"; // 设置返回类型为JSON
   xhr.onload = function () {
     options.onSuccess(xhr.response);
   };
@@ -38,7 +41,7 @@ export function httpRequest(options) {
     options.onError && options.onError(err);
   });
   xhr.open(options.method, action, true);
-
+  console.log(options.name, options.file);
   xhr.send(formData);
 
   return xhr;
