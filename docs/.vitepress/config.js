@@ -23,6 +23,7 @@ export default defineConfig({
       },
     },
   },
+  base: "/sq-components/",
   title: "SQ Component UI",
   description: "基于vue3实现的组件库",
   srcDir: "./src",
