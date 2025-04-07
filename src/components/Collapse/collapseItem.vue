@@ -21,6 +21,10 @@
 import { computed, inject } from "vue";
 import { collpaseContextKey } from "./types";
 
+defineOptions({
+  name: "sq-collapse-item",
+});
+
 const props = defineProps({
   name: {
     type: [String, Number],

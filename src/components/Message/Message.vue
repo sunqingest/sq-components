@@ -14,8 +14,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, computed, watch } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { getLastBottomOffset } from "./method";
+
+defineOptions({
+  name: "sq-message",
+});
 
 const props = defineProps({
   message: {

@@ -8,6 +8,10 @@
 import { ref, watch, provide } from "vue";
 import { collpaseContextKey } from "./types";
 
+defineOptions({
+  name: "sq-collapse",
+});
+
 const props = defineProps({
   modelValue: {
     type: Array,

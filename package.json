@@ -1,15 +1,42 @@
 {
-  "name": "demo-component",
-  "private": true,
-  "version": "0.0.0",
+  "name": "sunqing-components",
+  "version": "1.0.0",
+  "description": "Vue3 component library",
+  "keywords": [
+    "Component",
+    "Vue3"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunqingest/sq-components"
+  },
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "dist/index.css"
+  ],
+  "main": "./dist/sq-element.umd.cjs",
+  "module": "./dist/sq-element.js",
+  "exports": {
+    ".": {
+      "import": "./dist/sq-element.js",
+      "require": "./dist/sq-element.umd.cjs"
+    },
+    "./dist/": {
+      "import": "./dist/",
+      "require": "./dist/"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.13",
@@ -23,7 +50,10 @@
     "@vitepress-demo-preview/component": "^2.3.2",
     "@vitepress-demo-preview/plugin": "^1.3.0",
     "async-validator": "^4.2.5",
-    "spark-md5": "^3.0.2",
+    "move-file-cli": "^3.0.0",
+    "spark-md5": "^3.0.2"
+  },
+  "peerDependencies": {
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -39,6 +69,7 @@
     "postcss-nested": "^7.0.2",
     "vite": "^6.1.0",
     "vitepress": "^1.6.3",
-    "vitest": "^3.0.6"
+    "vitest": "^3.0.6",
+    "vue": "^3.5.13"
   }
 }
