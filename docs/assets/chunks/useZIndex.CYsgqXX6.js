@@ -1,0 +1,1 @@
+import{p as t,h as o}from"./framework.z2qGiSWS.js";const r=t(0),x=(e=2e3)=>{t(e);const n=o(()=>r.value+e.value);return{currentZIndex:n,nextZIndex:()=>(r.value++,n.value),initialValue:e}};export{x as u};
