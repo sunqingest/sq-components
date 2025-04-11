@@ -1,7 +1,7 @@
-import Button from "./Button.vue";
+import SqButton from "./Button.vue";
 
-Button.install = (app) => {
-  app.component(Button.name, Button);
+SqButton.install = (app) => {
+  app.component(SqButton.name, SqButton);
 };
 
-export default Button;
+export default SqButton;

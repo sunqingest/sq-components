@@ -1,13 +1,13 @@
-import Collapse from "./Collapse.vue";
-import CollapseItem from "./collapseItem.vue";
+import SqCollapse from "./Collapse.vue";
+import SqCollapseItem from "./collapseItem.vue";
 
-Collapse.install = (app) => {
-  app.component(Collapse.name, Collapse);
+SqCollapse.install = (app) => {
+  app.component(SqCollapse.name, SqCollapse);
 };
 
-CollapseItem.install = (app) => {
-  app.component(CollapseItem.name, CollapseItem);
+SqCollapseItem.install = (app) => {
+  app.component(SqCollapseItem.name, SqCollapseItem);
 };
 
-export default Collapse;
-export { CollapseItem };
+export default SqCollapse;
+export { SqCollapseItem };

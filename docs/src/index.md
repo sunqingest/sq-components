@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: alt
       text: 快速开始
-      link: /markdown-examples
+      link: /guide/quickstart
     - theme: alt
       text: github
       link: https://github.com/sunqingest/sq-components

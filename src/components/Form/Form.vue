@@ -8,6 +8,10 @@
 import { provide, ref } from "vue";
 import { formContextKey } from "./types.js";
 
+defineOptions({
+  name: "sq-form"
+})
+
 const props = defineProps({
   model: {
     type: Object,

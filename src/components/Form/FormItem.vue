@@ -30,6 +30,11 @@ import {
 } from "vue";
 import { formContextKey, formItemContextKey } from "./types";
 import Schema from "async-validator";
+
+defineOptions({
+  name: "sq-form-item",
+});
+
 const formContext = inject(formContextKey);
 
 const props = defineProps({

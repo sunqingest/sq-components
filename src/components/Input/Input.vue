@@ -14,6 +14,10 @@
 import { ref, watch, inject } from "vue";
 import { formItemContextKey } from "../Form/types";
 
+defineOptions({
+  name: "sq-input",
+});
+
 // formItem组件内的input select等 通过key值注入inject
 const formItemContext = inject(formItemContextKey);
 

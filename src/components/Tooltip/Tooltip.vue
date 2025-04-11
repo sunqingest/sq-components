@@ -12,7 +12,12 @@
     >
       <slot name="content">{{ content }}</slot>
       <!--arrow tooltip的箭头-->
-      <div id="arrow" ref="arrowRef" :style="arrowStyle"></div>
+      <div
+        id="arrow"
+        ref="arrowRef"
+        :style="arrowStyle"
+        class="sq-tooltip__arrow"
+      ></div>
     </div>
   </div>
 
@@ -29,7 +34,7 @@
 import { onMounted, reactive, ref, watch } from "vue";
 import { computePosition, flip, shift, offset, arrow } from "@floating-ui/dom";
 import useClickOutside from "./useClickOutside.js";
-import { debounce } from "@/utils/common";
+import { debounce } from "../../utils/common";
 
 const props = defineProps({
   content: {
@@ -166,6 +171,14 @@ const arrowStyle = ref({
   left: "0px",
   top: "0px",
 });
+const borderInsertColor = ref("#000");
+
+onMounted(() => {
+  const element = document.querySelector(".sq-tooltip");
+  borderInsertColor.value = getComputedStyle(element).getPropertyValue(
+    "--sq-tooltip-bg-color"
+  );
+});
 
 // 设置float的position
 const resetFloatPosition = () => {
@@ -201,22 +214,20 @@ const resetFloatPosition = () => {
       [staticSide]: "-5px",
     };
     if (staticSide == "left") {
-      styleObj["border-left"] = "1px solid red";
-      styleObj["border-bottom"] = "1px solid red";
+      styleObj["border-left"] = `1px solid ${borderInsertColor.value}`;
+      styleObj["border-bottom"] = `1px solid ${borderInsertColor.value}`;
     } else if (staticSide == "right") {
-      styleObj["border-right"] = "1px solid red";
-      styleObj["border-top"] = "1px solid red";
+      styleObj["border-right"] = `1px solid ${borderInsertColor.value}`;
+      styleObj["border-top"] = `1px solid ${borderInsertColor.value}`;
     } else if (staticSide == "top") {
-      styleObj["border-left"] = "1px solid red";
-      styleObj["border-top"] = "1px solid red";
+      styleObj["border-left"] = `1px solid ${borderInsertColor.value}`;
+      styleObj["border-top"] = `1px solid ${borderInsertColor.value}`;
     } else if (staticSide == "bottom") {
-      styleObj["border-right"] = "1px solid red";
-      styleObj["border-bottom"] = "1px solid red";
+      styleObj["border-right"] = `1px solid ${borderInsertColor.value}`;
+      styleObj["border-bottom"] = `1px solid ${borderInsertColor.value}`;
     }
-
     arrowStyle.value = styleObj;
-
-    console.log(placement.split("-")[0], staticSide);
+    // console.log(placement.split("-")[0], staticSide);
   });
 };
 

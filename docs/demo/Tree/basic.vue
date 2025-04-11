@@ -12,8 +12,8 @@
       <div style="display: flex; align-items: center">
         <span>{{ node.label }}</span>
         <div style="display: inline-flex; align-items: center">
-          <div style="cursor: pointer; margin-right: 10px">删除</div>
-          <div style="cursor: pointer; margin-right: 10px">新增</div>
+          <SqButton text type="primary">新增</SqButton>
+          <SqButton text type="danger">删除</SqButton>
         </div>
       </div>
     </template>
@@ -23,6 +23,7 @@
 <script setup>
 import { ref } from "vue";
 import Tree from "@/components/Tree/Tree.vue";
+import SqButton from "@/components/Button/Button.vue";
 
 const createData = () => {
   return [

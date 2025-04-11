@@ -5,26 +5,61 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 /* import specific icons */
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
-import Button from "./components/Button";
-import Collapse, { CollapseItem } from "./components/Collapse";
-import Message, { createMessage } from "./components/Message";
+import SqButton from "./components/Button";
+import SqCollapse, { SqCollapseItem } from "./components/Collapse";
+import SqMessage, { createMessage } from "./components/Message";
+import SqCheckbox, { SqCheckboxGroup } from "./components/Checkbox";
+import SqForm, { SqFormItem } from "./components/Form";
+import SqInput from "./components/Input";
+import SqTooltip from "./components/Tooltip";
+import SqTree from "./components/Tree";
+import SqMessageBox from "./components/MessageBox";
 
 import "./styles/index.css";
 
 /* add icons to the library */
 library.add(fas);
 
-const components = [Button, Collapse, CollapseItem, Message];
+const components = [
+  SqButton,
+  SqCollapse,
+  SqCollapseItem,
+  SqMessage,
+  SqCheckbox,
+  SqCheckboxGroup,
+  SqForm,
+  SqFormItem,
+  SqInput,
+  SqTooltip,
+  SqTree,
+  SqMessageBox,
+];
 
 // 完整引入 install方法
 const install = (app) => {
   components.forEach((component) => {
-    app.component(component.name, component);
+    // app.component(component.name, component);
+    app.use(component);
   });
 };
 
 // 按需导入
-export { Button, Collapse, CollapseItem, Message, createMessage, install };
+export {
+  install,
+  SqButton,
+  SqCollapse,
+  SqCollapseItem,
+  SqMessage,
+  createMessage,
+  SqCheckbox,
+  SqCheckboxGroup,
+  SqForm,
+  SqFormItem,
+  SqInput,
+  SqTooltip,
+  SqTree,
+  SqMessageBox,
+};
 
 export default {
   install,

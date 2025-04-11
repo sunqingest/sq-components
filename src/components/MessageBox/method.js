@@ -8,6 +8,7 @@ export function createMessage(options) {
 
   const props = {
     ...options,
+    // 事件监听器应以 onXxx 的形式书写
     onDestory: () => {
       render(null, container);
       messageInstanceMap.delete(vm);
@@ -16,7 +17,6 @@ export function createMessage(options) {
       const currentMsg = messageInstanceMap.get(vm);
       let resolve;
       resolve = action;
-      nextTick(() => vm.doClose());
       if (options.callback) {
         options.callback(resolve);
         return;
@@ -33,12 +33,12 @@ export function createMessage(options) {
   render(vnode, container);
   document.body.appendChild(container.firstElementChild);
   // 拿到虚拟节点上的component实例对象
-
   const vm = vnode.component;
   return vm;
 }
 export function MessageBox(options) {
   let callback;
+  // 若不使用 Promise，可以使用此参数指定 MessageBox 关闭后的回调
   if (options.callback) {
     callback = options.callback;
   }
@@ -67,9 +67,9 @@ const MESSAGE_BOX_DEFAULT_OPTS = {
 function messageBoxFactory(boxType) {
   return (message, title, options) => {
     return MessageBox({
+      ...options,
       title,
       message,
-      ...options,
       ...MESSAGE_BOX_DEFAULT_OPTS[boxType],
     });
   };

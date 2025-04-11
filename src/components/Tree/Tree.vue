@@ -192,7 +192,6 @@ const triggerLoading = (node) => {
         node.rawNode[props.childrenField] = children;
         // 给格式化之后的node也赋值 这个需要格式化一下
         node.children = createTree(children, node);
-        console.log(node.children, "请求并且赋值完成");
         loadingKeys.delete(node.key);
       });
     }

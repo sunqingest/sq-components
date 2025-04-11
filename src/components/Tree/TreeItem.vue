@@ -1,29 +1,32 @@
 <template>
-  <div
-    class="sq-tree__item"
-    :style="{
-      paddingLeft: `${item.level * 16}px`,
-    }"
-  >
+  <div class="sq-tree-item">
     <div
-      class="sq-tree__item__icon--container"
-      :class="{
-        collapse: !expanded,
+      class="sq-tree-item__modify"
+      :style="{
+        paddingLeft: `${item.level * 16}px`,
       }"
     >
-      <ExpandIcon></ExpandIcon>
+      <div
+        class="sq-tree-item__icon"
+        :class="{
+          collapse: !expanded,
+        }"
+        @click="handleClick"
+      >
+        <ExpandIcon></ExpandIcon>
+      </div>
+
+      <div
+        class="sq-tree-item__icon sq-tree-item__icon--loading"
+        v-if="isLoading"
+      >
+        <LoadingIcon />
+      </div>
     </div>
 
-    <div
-      class="sq-tree__item__icon--container sq-tree__item__icon--loading"
-      v-if="isLoading"
-    >
-      <LoadingIcon />
-    </div>
-
-    <div class="sq-tree__item__content" @click="handleClick">
-      <!-- {{ item.label }} -->
-      <TreeItemContent :node="item" :slots="slots"></TreeItemContent>
+    <div class="sq-tree-item__content" @click="handleClick">
+      <span v-if="!slots.default"> {{ item.label }}</span>
+      <TreeItemContent :node="item" :slots="slots" v-else></TreeItemContent>
     </div>
   </div>
 </template>
@@ -56,7 +59,6 @@ const props = defineProps({
 const emit = defineEmits(["toggle"]);
 
 const handleClick = () => {
-  console.log("???");
   emit("toggle", props.item);
 };
 

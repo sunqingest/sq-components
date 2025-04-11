@@ -14,8 +14,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.js"),
-      name: "SqElement",
-      fileName: "sq-element",
+      name: "SqComponents",
+      fileName: "sq-components",
     },
     rollupOptions: {
       external: ["vue"],
@@ -25,7 +25,7 @@ export default defineConfig({
           vue: "Vue",
         },
         assetFileNames: (chunkInfo) => {
-          if (chunkInfo.name == "sq-element.css") {
+          if (chunkInfo.name == "sq-components.css") {
             return "index.css";
           }
           return chunkInfo.name;

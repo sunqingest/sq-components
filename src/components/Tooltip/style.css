@@ -1,5 +1,5 @@
 .sq-tooltip {
-  --sq-tooltip-bg-color: #dcdfe6;
+  --sq-tooltip-bg-color: #000;
   position: relative;
   display: flex;
 }
@@ -10,7 +10,7 @@
 
 .sq-tooltip__content {
   background-color: var(--sq-tooltip-bg-color);
-  border: 1px solid red;
+  border: 1px solid var(--sq-tooltip-bg-color);
 }
 
 #tooltip {

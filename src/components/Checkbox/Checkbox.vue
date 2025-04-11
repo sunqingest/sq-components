@@ -37,7 +37,12 @@
 
 <script setup>
 import { computed, ref, inject } from "vue";
-import { checkboxGroupContextKey } from "./types";
+import { checkboxGroupContextKey } from "./types.js";
+import { formItemContextKey } from "../Form/types.js";
+
+defineOptions({
+  name: "sq-checkbox",
+});
 
 const props = defineProps({
   label: {
@@ -99,6 +104,7 @@ const model = computed({
     } else {
       // 单个复选框 触发自己的v-model
       emit("update:modelValue", value);
+      runValidate("change");
     }
   },
 });
@@ -106,5 +112,13 @@ const model = computed({
 const handleChange = (e) => {
   // 通过监听原生的checkbox的change事件 获取原生checkbox的checked属性来判断是否选中状态
   emit("change", e.target.checked);
+};
+
+// 作为子组件用在formItem的时候 校验
+const formItemContext = inject(formItemContextKey, undefined);
+const runValidate = (trigger) => {
+  formItemContext.validate(trigger).catch((error) => {
+    console.log(error);
+  });
 };
 </script>

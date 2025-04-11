@@ -34,7 +34,7 @@ export default defineConfig({
       { text: "首页", link: "/" },
       {
         text: "指南",
-        link: "/guide/",
+        link: "/guide/install",
         activeMatch: "/guide/",
       },
       {
@@ -52,7 +52,11 @@ export default defineConfig({
           items: [
             {
               text: "安装",
-              link: "/guide/",
+              link: "/guide/install",
+            },
+            {
+              text: "快速开始",
+              link: "/guide/quickstart",
             },
           ],
         },
