@@ -91,6 +91,10 @@ export default defineConfig({
               text: "MessageBox消息弹出框",
               link: "/components/messageBox",
             },
+            {
+              text: "Loading加载",
+              link: "/components/loading",
+            },
           ],
         },
         {

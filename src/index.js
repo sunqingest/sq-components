@@ -14,6 +14,7 @@ import SqInput from "./components/Input";
 import SqTooltip from "./components/Tooltip";
 import SqTree from "./components/Tree";
 import SqMessageBox from "./components/MessageBox";
+import SqLoading from "./components/Loading";
 
 import "./styles/index.css";
 
@@ -33,6 +34,7 @@ const components = [
   SqTooltip,
   SqTree,
   SqMessageBox,
+  SqLoading,
 ];
 
 // 完整引入 install方法
@@ -59,6 +61,7 @@ export {
   SqTooltip,
   SqTree,
   SqMessageBox,
+  SqLoading,
 };
 
 export default {

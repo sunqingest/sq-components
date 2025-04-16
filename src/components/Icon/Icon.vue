@@ -45,6 +45,11 @@ const props = defineProps({
     type: String,
     // 直接通过style设置color的值
   },
+  // 是否旋转 通过使用awesome的spin属性
+  spin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // 给FontAwesomeIcon绑定的props传递过来的属性字段

@@ -11,6 +11,8 @@ import Input from "./components/Input/Input.vue";
 
 import { debounce } from "./utils/common";
 
+import { SqLoading } from "./components/Loading/index";
+
 import {
   useFloating,
   offset,
@@ -43,17 +45,26 @@ const arrowStyle = computed(() => {
 const collapseValue = ref([]);
 
 onMounted(() => {
-  const messageInstance = createMessage({
-    message: "哈哈 111",
-  });
-  createMessage({
-    message: "哈哈 222",
-    duration: 1000,
-  });
+  // const messageInstance = createMessage({
+  //   message: "哈哈 111",
+  // });
+  // createMessage({
+  //   message: "哈哈 222",
+  //   duration: 1000,
+  // });
 
   setTimeout(() => {
-    messageInstance.destory();
-  }, 5000);
+    // messageInstance.destory();
+    // 通过调用loading组件内的loading的方法 通过导出的loading对象的close关闭
+    const loadingInstance = SqLoading.service({
+      text: "哈哈哈",
+      lock: true,
+    });
+
+    // setTimeout(() => {
+    //   loadingInstance.close();
+    // }, 3000);
+  }, 1000);
 });
 
 const virtualScrollData = ref([]);
