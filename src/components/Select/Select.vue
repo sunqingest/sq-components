@@ -240,6 +240,12 @@ const findOption = (value) => {
 const initialOption = findOption(props.modelValue);
 const innerValue = ref(initialOption ? initialOption.label : "");
 
+watch(props.modelValue, () => {
+  let newOption = findOption(props.modelValue);
+  states.inputValue = newOption ? newOption.label : "";
+  states.selectOption = newOption || null;
+});
+
 const states = reactive({
   inputValue: initialOption ? initialOption.label : "",
   selectOption: initialOption || null,

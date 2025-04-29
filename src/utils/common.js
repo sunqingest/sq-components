@@ -20,7 +20,6 @@ function debounce(
     }
 
     timer = setTimeout(() => {
-      console.log("debounce?????");
       fn.apply(this, args);
       timer = null;
       isInvoke = false;
