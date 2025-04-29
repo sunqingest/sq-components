@@ -6,12 +6,12 @@
     }"
     :style="customStyles"
   >
-    <font-awesome-icon v-bind="iconProps" />
+    <font-awesome-icon v-bind="{ ...iconProps, ...$attrs }" />
   </span>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, useAttrs } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // https://docs.fontawesome.com/web/use-with/vue/add-icons#importing-from-svg-icon-packages
 // vitepress使用icon组件的时候 也需要在/theme/index下扩展组件的时候引入svg图标包

@@ -176,7 +176,7 @@ const createLoadingComponent = (options) => {
   });
 
   const vm = app.mount(document.createElement("div"));
-  console.log(app);
+
   return {
     // 属性访问器
     get $el() {

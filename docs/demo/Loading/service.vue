@@ -1,5 +1,6 @@
 <template>
   <div
+    class="test-loading"
     style="
       width: 100%;
       height: 180px;
@@ -8,21 +9,22 @@
       justify-content: center;
       align-items: center;
     "
-    v-loading="isloading"
-    sq-loading-text="loading"
   >
     内容展示区域
   </div>
 </template>
 <script setup>
 import SqLoading from "@/components/Loading/index.js";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
-const vLoading = SqLoading.directive;
+let loadingInstance;
 
-const isloading = ref(true);
-
-setTimeout(() => {
-  isloading.value = false;
-}, 2000);
+onMounted(() => {
+  loadingInstance = SqLoading.service({
+    target: ".test-loading",
+  });
+  setTimeout(() => {
+    loadingInstance.close();
+  }, 3000);
+});
 </script>

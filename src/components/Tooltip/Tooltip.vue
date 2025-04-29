@@ -32,7 +32,14 @@
 
 <script setup>
 import { onMounted, reactive, ref, watch } from "vue";
-import { computePosition, flip, shift, offset, arrow } from "@floating-ui/dom";
+import {
+  computePosition,
+  flip,
+  shift,
+  offset,
+  arrow,
+  size,
+} from "@floating-ui/dom";
 import useClickOutside from "./useClickOutside.js";
 import { debounce } from "../../utils/common";
 
@@ -63,7 +70,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["visible-change"]);
+const emits = defineEmits(["visible-change", "click-outside"]);
 
 const isOpen = ref(false);
 
@@ -79,12 +86,12 @@ const triggerOpen = () => {
 
 const open = () => {
   isOpen.value = true;
-  emit("visible-change", true);
+  emits("visible-change", true);
 };
 
 const close = () => {
   isOpen.value = false;
-  emit("visible-change", false);
+  emits("visible-change", false);
 };
 
 const openDebounce = debounce(open, props.openDelay);
@@ -160,6 +167,8 @@ useClickOutside(parentRef, () => {
   if (isOpen.value && props.trigger == "click" && !props.manual) {
     close();
   }
+  // emit事件 向父组件告知容器外元素的点击事件
+  emits("click-outside");
 });
 
 const tooltipStyle = reactive({
@@ -171,12 +180,12 @@ const arrowStyle = ref({
   left: "0px",
   top: "0px",
 });
-const borderInsertColor = ref("#000");
+const borderInsertColor = ref("#fff");
 
 onMounted(() => {
   const element = document.querySelector(".sq-tooltip");
   borderInsertColor.value = getComputedStyle(element).getPropertyValue(
-    "--sq-tooltip-bg-color"
+    "--sq-tooltip-border-color"
   );
 });
 
@@ -187,6 +196,13 @@ const resetFloatPosition = () => {
     middleware: [
       offset(6),
       flip(),
+      size({
+        apply({ rects, elements }) {
+          Object.assign(elements.floating.style, {
+            minWidth: `${rects.reference.width}px`,
+          });
+        },
+      }),
       shift({
         padding: 5,
       }),
