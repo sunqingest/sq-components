@@ -137,6 +137,10 @@ export default defineConfig({
               text: "Tree树形控件",
               link: "/components/tree",
             },
+            {
+              text: "Calendar日历",
+              link: "/components/calendar",
+            },
           ],
         },
       ],
