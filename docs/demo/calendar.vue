@@ -1,5 +1,4 @@
 <template>
-  {{ value }}
   <SqCalendar v-model="value"></SqCalendar>
 </template>
 

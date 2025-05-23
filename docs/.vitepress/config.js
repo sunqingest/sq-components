@@ -120,6 +120,10 @@ export default defineConfig({
               text: "Upload上传",
               link: "/components/upload",
             },
+            {
+              text: "Switch开关",
+              link: "/components/switch",
+            },
           ],
         },
         {

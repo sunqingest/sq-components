@@ -1,7 +1,7 @@
 <template>
   <div class="sq-calendar">
     <div class="sq-calendar__header">
-      <div class="sq-calendar__title">几月</div>
+      <div class="sq-calendar__title">{{ currentMonth }}月</div>
       <div class="sq-calendar__btn--group">
         <div @click="handleSelectDate('prev-month')">上个月</div>
         <div @click="handleSelectDate('today')">今天</div>
@@ -35,7 +35,7 @@
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import { computed, ref } from "vue";
-dayjs.locale("zh-cn");
+// dayjs.locale("zh-cn");
 defineOptions({
   name: "SqCalendar",
 });
@@ -150,6 +150,7 @@ const handleSelectDate = (type) => {
 };
 
 const pickDay = (day) => {
+  selectDay.value = day;
   emit("update:modelValue", day.toDate());
 };
 
@@ -169,7 +170,6 @@ const formatDay = (text, type) => {
 const handlePick = (item) => {
   const { text, type } = item;
   const day = formatDay(text, type);
-  selectDay.value = day;
   pickDay(day);
 };
 
@@ -187,4 +187,8 @@ const getCellClass = ({ text, type }) => {
 
   return classList;
 };
+
+const currentMonth = computed(() => {
+  return date.value.month() + 1;
+});
 </script>
