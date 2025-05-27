@@ -1,0 +1,1 @@
+import{p as r,h as s}from"./framework.DIH4EIql.js";const t=r(0),c=(e=2e3)=>{const o=r(e),n=s(()=>t.value+o.value);return{currentZIndex:n,nextZIndex:()=>(t.value++,n.value),initialValue:e}};export{c as u};
