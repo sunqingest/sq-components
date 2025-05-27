@@ -22,6 +22,13 @@
       >
         <LoadingIcon />
       </div>
+      <div v-if="showCheckbox">
+        <SqCheckbox
+          :model-value="checked"
+          :indeterminate="indeterminate"
+          @change="handleCheckboxChange"
+        ></SqCheckbox>
+      </div>
     </div>
 
     <div class="sq-tree-item__content" @click="handleClick">
@@ -37,6 +44,7 @@ import ExpandIcon from "./icons/ExpandIcon.vue";
 import LoadingIcon from "./icons/LoadingIcon.vue";
 import { treeContextKey } from "./types";
 import TreeItemContent from "./treeItemContent";
+import SqCheckbox from "../Checkbox/Checkbox.vue";
 
 defineOptions({
   name: "sq-tree-item",
@@ -54,9 +62,21 @@ const props = defineProps({
   loadingKeys: {
     type: Set,
   },
+  showCheckbox: {
+    type: Boolean,
+    default: false,
+  },
+  checked: {
+    type: Boolean,
+    required: true,
+  },
+  indeterminate: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const emit = defineEmits(["toggle"]);
+const emit = defineEmits(["toggle", "toggleCheck"]);
 
 const handleClick = () => {
   emit("toggle", props.item);
@@ -66,6 +86,10 @@ const isLoading = computed(() => {
   return props.loadingKeys.has(props.item.key);
   // return true;
 });
+
+const handleCheckboxChange = (value) => {
+  emit("toggleCheck", props.item, value);
+};
 
 // slots是一个插槽对象 每个插槽是个方法 返回的是一个包含虚拟dom的数组
 // 不能直接在.vue的文件的template模板中直接编译 需要h渲染函数或者直接jsx

@@ -7,6 +7,10 @@
       :expanded="isExpanded(item)"
       @toggle="toggleExpand"
       :loadingKeys="loadingKeysSet"
+      :showCheckbox="showCheckbox"
+      :checked="isChecked(item)"
+      :indeterminate="isIndeterminate(item)"
+      @toggleCheck="toggleCheck"
     ></TreeItem>
   </div>
 </template>
@@ -47,6 +51,21 @@ const props = defineProps({
   load: {
     type: Function,
   },
+  showCheckbox: {
+    type: Boolean,
+    default: false,
+  },
+  // 默认勾选的节点的 key 的数组
+  defaultCheckedKeys: {
+    type: Array,
+    default: () => [],
+  },
+  // check-strictly
+  // 在显示复选框的情况下，是否严格的遵循父子不互相关联的做法，默认为 false
+  checkStrictly: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const tree = ref([]);
@@ -83,6 +102,9 @@ const treeOptions = createOptions(
   props.childrenField
 );
 
+// 创建Map key值为key value值为node 方便根据node的key查找对应的node
+const treeNodeMap = new Map();
+
 const createTree = (data, parent = null) => {
   const traversal = (data, parent = null) => {
     return data.map((node) => {
@@ -94,11 +116,13 @@ const createTree = (data, parent = null) => {
         rawNode: node,
         level: parent ? parent.level + 1 : 0,
         isLeaf: node.isLeaf ?? children.length == 0,
+        parentKey: parent ? parent.key : "",
       };
       if (children.length > 0) {
         treeNode.children = traversal(children, treeNode);
       }
-
+      // 方便根据key值查找对应的node
+      treeNodeMap.set(treeNode.key, treeNode);
       return treeNode;
     });
   };
@@ -197,6 +221,98 @@ const triggerLoading = (node) => {
     }
   }
 };
+
+// 节点的选择
+const checkedKeysSet = ref(new Set(props.defaultCheckedKeys));
+const indeterminateKeysSet = ref(new Set());
+
+const isChecked = (item) => {
+  return checkedKeysSet.value.has(item.key);
+};
+
+const isIndeterminate = (item) => {
+  return indeterminateKeysSet.value.has(item.key);
+};
+
+// check 自上而下更新
+const toggleCheckSelfAndChildren = (node, checked) => {
+  if (checked) {
+    // 选中 则将其 可能是半选状态 半选set中去除
+    indeterminateKeysSet.value.delete(node.key);
+  }
+  const checkedKeys = checkedKeysSet.value;
+  if (checked) {
+    checkedKeys.add(node.key);
+  } else {
+    checkedKeys.delete(node.key);
+  }
+  // 更新其子集
+  if (!props.checkStrictly) {
+    node.children.forEach((child) => {
+      if (!child.disabled) {
+        toggleCheckSelfAndChildren(child, checked);
+      }
+    });
+  }
+};
+
+const findNode = (key) => {
+  return treeNodeMap.get(key);
+};
+
+// 自下而上更新
+const toggleCheckParent = (node, checked) => {
+  if (node.parentKey) {
+    const parentNode = findNode(node.parentKey);
+
+    if (parentNode) {
+      // 默认子集全被选中
+      let allChekced = true;
+      // 默认子集没被选中 半选也算
+      let childChecked = false;
+
+      const nodes = parentNode.children;
+      for (let node of nodes) {
+        if (checkedKeysSet.value.has(node.key)) {
+          childChecked = true;
+        } else if (indeterminateKeysSet.value.has(node.key)) {
+          allChekced = false;
+          childChecked = true;
+        } else {
+          allChekced = false;
+        }
+      }
+      if (allChekced) {
+        // 全选
+        checkedKeysSet.value.add(parentNode.key);
+        indeterminateKeysSet.value.delete(parentNode.key);
+      } else if (childChecked) {
+        checkedKeysSet.value.delete(parentNode.key);
+        indeterminateKeysSet.value.add(parentNode.key);
+      } else {
+        checkedKeysSet.value.delete(parentNode.key);
+        indeterminateKeysSet.value.delete(parentNode.key);
+      }
+      toggleCheckParent(parentNode);
+    }
+  }
+};
+
+const toggleCheck = (node, checked) => {
+  // 自上而下更新
+  toggleCheckSelfAndChildren(node, checked);
+  // 自下而上更新
+  if (!props.checkStrictly) {
+    toggleCheckParent(node, checked);
+  }
+};
+
+onMounted(() => {
+  // 将默认选中的节点选中
+  checkedKeysSet.value.forEach((key) => {
+    toggleCheck(findNode(key), true);
+  });
+});
 
 const slots = useSlots();
 

@@ -35,7 +35,7 @@
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import { computed, ref } from "vue";
-// dayjs.locale("zh-cn");
+dayjs.locale("zh-cn");
 defineOptions({
   name: "SqCalendar",
 });

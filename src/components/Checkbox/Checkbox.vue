@@ -117,8 +117,10 @@ const handleChange = (e) => {
 // 作为子组件用在formItem的时候 校验
 const formItemContext = inject(formItemContextKey, undefined);
 const runValidate = (trigger) => {
-  formItemContext.validate(trigger).catch((error) => {
-    console.log(error);
-  });
+  if (formItemContext) {
+    formItemContext.validate(trigger).catch((error) => {
+      console.log(error);
+    });
+  }
 };
 </script>

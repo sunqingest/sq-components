@@ -1,12 +1,14 @@
 <template>
   <Tree
     :data="treeData"
-    keyField="key"
+    keyField="id"
     labelField="label"
     childrenField="children"
-    :defaultExpandedKeys="['1']"
+    :defaultExpandedKeys="[]"
     :load="handleLoad"
-    :lazy="true"
+    :lazy="false"
+    :show-checkbox="true"
+    :default-checked-keys="['2', '5']"
   >
     <template #default="{ node, data }">
       <div style="display: flex; align-items: center">
@@ -74,5 +76,39 @@ const handleLoad = (node) => {
   });
 };
 
-const treeData = ref(createData());
+// const treeData = ref(createData());
+const treeData = ref([
+  {
+    id: "1",
+    label: "一一一",
+    children: [
+      {
+        id: "2",
+        label: "一一一1",
+        children: [],
+      },
+      {
+        id: "3",
+        label: "一一一3",
+        children: [],
+      },
+      {
+        id: "4",
+        label: "一一一4",
+        children: [
+          {
+            id: "5",
+            label: "——————5",
+            children: [],
+          },
+          {
+            id: "6",
+            label: "——————6",
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+]);
 </script>
